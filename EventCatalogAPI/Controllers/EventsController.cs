@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EventCatalogAPI.ViewModel;
 
 namespace EventCatalogAPI.Controllers
 {
@@ -25,6 +26,38 @@ namespace EventCatalogAPI.Controllers
         }
 
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Items(
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 6)
+        {
+            var itemsCount = _context.Events.LongCountAsync();
+            var items = await _context.Events
+                  //.OrderBy (c=>c.EventName)
+                  .Skip(pageIndex * pageSize)
+                  .Take(pageSize)
+                  .ToListAsync();
+
+            items = ChangePictureUrl(items);
+            var model = new PaginatedItemsViewModel
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = itemsCount.Result,
+                Data = items
+            };
+
+            return Ok(model);
+        }
+
+        private List<EachEvent> ChangePictureUrl(List<EachEvent> items)
+        {
+            items.ForEach(item =>
+              item.PictureUrl =
+              item.PictureUrl.Replace(
+                  "http://externalcatalogbaseurltobereplaced", _config["ExternalCatalogUrl"]));
+            return items;
+        }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetByType(

@@ -19,7 +19,7 @@ services:
 
 
     ports: 
-      - "7004:80"
+      - "7006:80"
     container_name: eventscatalogapi1
     networks:
       - frontend
@@ -35,7 +35,7 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: ProductApi(!)
     ports:
-      - "1452:1433"
+      - "1456:1433"
     container_name: eventssqlserver
     networks: 
       - backend
