@@ -70,8 +70,9 @@ namespace EventCatalogAPI.Data
                 e.Property(v => v.Address)
                 .IsRequired();
 
-                //e.Property(v => v.State)
-                //.IsRequired();
+                e.Property(v => v.State)
+                .IsRequired()
+                .HasMaxLength(10);
 
 
 

@@ -16,6 +16,7 @@ services:
       DatabaseName: EventCatalogDb
       DatabaseUser: sa
       DatabasePassword: ProductApi(!) 
+      ExternalCatalogUrl: http://localhost:7006
 
 
     ports: 
