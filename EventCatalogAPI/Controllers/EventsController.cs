@@ -51,6 +51,53 @@ namespace EventCatalogAPI.Controllers
             return Ok(model);
         }
 
+
+        //Queryable filters
+
+        [HttpGet("[action]/type/{typeId}/location/{locationId}/zip/{zipCode}")]
+        public async Task<IActionResult> Items(
+            int? typeId,
+            int? locationId,
+            string zipCode,
+            [FromQuery] int pageIndex = 0,
+            [FromQuery] int pageSize = 6)
+        {
+            var query = (IQueryable<EachEvent>)_context.Events;
+            if (typeId.HasValue)
+            {
+                query = query.Where(c => c.TypeId == typeId);
+            }
+            if (locationId.HasValue)
+            {
+                query = query.Where(c => c.LocationId == locationId);
+            }
+            if (!string.IsNullOrWhiteSpace(zipCode))
+            {
+                query = query.Where(c => c.Zip == zipCode);
+            }
+
+            var itemsCount = _context.Events.LongCountAsync();
+            var items = await _context.Events
+                  //.OrderBy (c=>c.EventName)
+                  .Skip(pageIndex * pageSize)
+                  .Take(pageSize)
+                  .ToListAsync();
+
+            items = ChangePictureUrl(items);
+
+            var model = new PaginatedItemsViewModel
+            {
+                PageIndex = pageIndex,
+                PageSize = items.Count,
+                Count = itemsCount.Result,
+                Data = items
+            };
+
+            return Ok(model);
+        }
+
+
+
         private List<EachEvent> ChangePictureUrl(List<EachEvent> items)
         {
             items.ForEach(item =>
