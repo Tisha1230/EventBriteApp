@@ -58,7 +58,7 @@ namespace EventCatalogAPI.Controllers
         public async Task<IActionResult> Items(
             int? typeId,
             int? locationId,
-            string zipCode,
+            //string zipCode,
             [FromQuery] int pageIndex = 0,
             [FromQuery] int pageSize = 6)
         {
@@ -71,10 +71,10 @@ namespace EventCatalogAPI.Controllers
             {
                 query = query.Where(c => c.LocationId == locationId);
             }
-            if (!string.IsNullOrWhiteSpace(zipCode))
-            {
-                query = query.Where(c => c.Zip == zipCode);
-            }
+            //if (!string.IsNullOrWhiteSpace(zipCode))
+            //{
+            //    query = query.Where(c => c.Zip == zipCode);
+            //}
 
             var itemsCount = _context.Events.LongCountAsync();
             var items = await _context.Events
@@ -111,32 +111,32 @@ namespace EventCatalogAPI.Controllers
         public async Task<IActionResult> GetByType(
             [FromQuery] int typeId = 0)
         {
-            var items = await this._context.Events.Where(x => x.TypeId == typeId).ToListAsync();
-            return Ok(items);
+            var types = await this._context.Events.Where(x => x.TypeId == typeId).ToListAsync();
+            return Ok(types);
         }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetByLocation(
            [FromQuery] int locationId = 0)
         {
-            var items = await this._context.Events.Where(x => x.LocationId == locationId).ToListAsync();
-            return Ok(items);
+            var locations = await this._context.Events.Where(x => x.LocationId == locationId).ToListAsync();
+            return Ok(locations);
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> GetByPopularity(
-           [FromQuery] int likes = 0)
-        {
-            var items = await this._context.Events.Where(x => x.Likes == likes).ToListAsync();
-            return Ok(items);
-        }
+        //[HttpGet("[action]")]
+        //public async Task<IActionResult> GetByPopularity(
+        //   [FromQuery] int likes = 0)
+        //{
+        //    var items = await this._context.Events.Where(x => x.Likes == likes).ToListAsync();
+        //    return Ok(items);
+        //}
 
         [HttpGet("[action]")]
         public async Task<IActionResult> GetByZipCode(
            [FromQuery] string zipcode = "0")
         {
-            var items = await this._context.Events.Where(x => x.Zip == zipcode).ToListAsync();
-            return Ok(items);
+            var zip = await this._context.Events.Where(x => x.Zip == zipcode).ToListAsync();
+            return Ok(zip);
         }
 
     }
