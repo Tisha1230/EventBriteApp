@@ -7,7 +7,7 @@ namespace WebMVC.Infrastructure
 {
     public class ApiPaths
     {
-        public static class Catalog
+        public static class Event
         {
             public static string GetAllTypes(string baseUri) //baseUri =http://localhost:7006/api/catalog
             {
@@ -17,7 +17,7 @@ namespace WebMVC.Infrastructure
             {
                 return $"{baseUri}GetByLocation";
             }
-            public static string GetAllCatalogItems(string baseUri, int page, int take, int? type, int? location)
+            public static string GetAllEvents(string baseUri, int page, int take, int? type, int? location)
             {
                 var filterQs = string.Empty;
                 if (type.HasValue || location.HasValue)

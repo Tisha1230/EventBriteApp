@@ -12,13 +12,12 @@ services:
       context: .\EventCatalogAPI
       dockerfile: Dockerfile
     environment: 
+      ASPNETCORE_ENVIRONMENT: Development
       DatabaseServer: mssqlserver
       DatabaseName: EventCatalogDb
       DatabaseUser: sa
       DatabasePassword: ProductApi(!) 
       ExternalCatalogUrl: http://localhost:7006
-
-
     ports: 
       - "7006:80"
     container_name: eventscatalogapi1
@@ -28,7 +27,21 @@ services:
     depends_on:
       - mssqlserver
 
-
+  webmvc:
+    image: events1/webmvc
+    build:
+      context: .\WebMVC
+      dockerfile: Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      EventUrl: http://catalog
+    ports:
+      - "7600:80"
+    container_name: eventWebshop
+    networks:
+      - frontend
+    depends_on: 
+      - catalog
 
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"
