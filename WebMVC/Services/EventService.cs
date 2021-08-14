@@ -80,7 +80,7 @@ namespace WebMVC.Services
                     new SelectListItem
                     {
                         Value = type.Value<string>("id"),
-                        Text = type.Value<string>("type")
+                        Text = type.Value<string>("typeName")
                     });
             }
             return items; //returning a liat of select list items
