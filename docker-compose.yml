@@ -35,6 +35,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       EventUrl: http://catalog
+      IdentityUrl: http://192.168.1.23:7660
+      CallBackUrl: http://localhost:7600
     ports:
       - "7600:80"
     container_name: eventWebshop
@@ -42,6 +44,24 @@ services:
       - frontend
     depends_on: 
       - catalog
+      - tokenserver
+
+  tokenserver:
+    build:
+      context: .\TokenServiceApi
+      dockerfile: Dockerfile
+    image: events/tokenapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      MvcClient: http://localhost:7600
+    ports:
+      - "7660:80"
+    container_name: eventstokenserviceapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mssqlserver
 
   mssqlserver:
     image: "mcr.microsoft.com/mssql/server:latest"

@@ -24,7 +24,7 @@ namespace WebMVC.Services
         {
             var eachEventsUri = ApiPaths.Event.GetAllEvents(_baseUrl, page, size, type, location);
             var dataString = await _client.GetStringAsync(eachEventsUri);
-            return JsonConvert.DeserializeObject<EventPagination >(dataString);
+            return JsonConvert.DeserializeObject<EventPagination >(dataString); //(File.ReadAllText(datastring))
         }
 
         public async Task<IEnumerable<SelectListItem>> GetLocationsAsync()
