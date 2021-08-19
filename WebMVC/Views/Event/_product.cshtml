@@ -17,12 +17,12 @@
 
     @if (Model.Price == 0)
     {
-        <span class="esh-catalog-price">FREE</span>
+        <span class="esh-catalog-price1">FREE</span>
     }
 
     else
     {
-        <span class="esh-catalog-price1">$@Model.Price.ToString("N2")</span>
+        <span class="esh-catalog-price">@Model.Price.ToString("N2")</span>
     }
 
     <div class="esh-catalog-date">

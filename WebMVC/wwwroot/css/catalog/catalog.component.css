@@ -145,3 +145,9 @@
     .esh-catalog-price::before {
         content: '$';
     }
+
+.esh-catalog-price1 {
+    text-align: center;
+    font-weight: 900;
+    font-size: 28px;
+}
