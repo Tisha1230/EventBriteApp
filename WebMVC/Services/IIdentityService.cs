@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebMVC.Services
 {
-    interface IIdentityService
-    {
+   
         public interface IIdentityService<T> 
         { 
             T Get(IPrincipal principal); //Get the User (Principal:term used in token for user information)
         }
-    }
+    
 }

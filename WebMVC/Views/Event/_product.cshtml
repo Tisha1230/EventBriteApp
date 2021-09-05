@@ -6,7 +6,7 @@
 
 
 
-<form asp-controller="Cart" asp-action="Register">
+<form asp-controller="Cart" asp-action="AddToCart">
     <img class="esh-catalog-thumbnail" src="@Model.PictureUrl" />
     <input class="esh-catalog-button" type="submit" value="[ REGISTER ]" />
     <div class="esh-catalog-name">
@@ -37,7 +37,7 @@
 
     @*</div>*@
     <input type="hidden" asp-for="@Model.EventLocation " name="city" />
-    <input type="hidden" asp-for="@Model.LocationId" name="LocaationId" />
+    <input type="hidden" asp-for="@Model.LocationId" name="LocationId" />
     <input type="hidden" asp-for="@Model.EventType" name="type" />
     <input type="hidden" asp-for="@Model.TypeId" name="typeId" />
     <input type="hidden" asp-for="@Model.Description" name="description" />

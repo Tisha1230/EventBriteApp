@@ -5,7 +5,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using WebMVC.Models;
-using static WebMVC.Services.IIdentityService;
+
 
 namespace WebMVC.Services
 {
