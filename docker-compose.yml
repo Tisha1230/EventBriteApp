@@ -46,6 +46,33 @@ services:
       - tokenserver
       - basket.data
 
+  order:
+    build:
+      context: .\OrderApi
+      dockerfile: Dockerfile
+    image: events1/orderapi
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      IdentityUrl: http://192.168.1.23:7660
+      DatabaseServer: mssqlserver
+      DatabaseName: OrdersDb
+      DatabaseUser: sa
+      DatabasePassword: ProductApi(!)
+    ports:
+      - "7026:80"
+    container_name: eventsorderapi
+    networks:
+      - backend
+      - frontend
+    depends_on:
+      - mssqlserver
+      - tokenserver
+
   webmvc:
     image: events1/webmvc
     build:
@@ -57,6 +84,9 @@ services:
       IdentityUrl: http://192.168.1.23:7660
       CallBackUrl: http://localhost:7600
       CartUrl: http://cart
+      OrderUrl: http://order
+      StripePublicKey: pk_test_51JWbbKDzDKEHkvGhL3u5VnDJvvPsrUWkQnB8pVd3YGE3Qsm2pJ04O2TPTGbE3ylPJzzkbk5IctwjCHs1MXujhFnT00VzBjwZjx
+      StripePrivateKey: sk_test_51JWbbKDzDKEHkvGh9T8jb4tMGrIPBuj5Vu7cZO7HhJNDrjDlQtW3txWE0u3mV683OzuyLNBBamkId2IQ6Sf9yaPG00akR1olaC
     ports:
       - "7600:80"
     container_name: eventWebshop
@@ -66,6 +96,7 @@ services:
       - catalog
       - tokenserver
       - cart
+      - order
 
   tokenserver:
     build:
