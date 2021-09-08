@@ -5,3 +5,6 @@ https://youtu.be/NLVBPJ_C1QI
 
 DEMO YOUTUBE VIDEO LINK TO ASSIGNMENT 3B:
 https://youtu.be/VKUsMYFV580
+
+DEMO YOUTUBE VIDEO LINK TO ASSIGNMENT 3C:
+https://youtu.be/-Lzxdl7o9Ks
